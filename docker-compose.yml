@@ -13,27 +13,33 @@ dbPublic:
     - MYSQL_ROOT_PASSWORD=myVerySecretPassword
 
 author:
-  image: nicolasbarbe/quickstart-project
+  image: nicolasbarbe/magnolia-cloud-bundle:0.2-SNAPSHOT
   command: run
   ports:
     - "3000:8080"
   links:
     - dbAuthor:db
   environment:
-    - INSTANCE_TYPE=author_postgres
+    - INSTANCE_TYPE=author
+    - DB_TYPE=postgresql
+    - DB_ADDRESS=db
+    - DB_PORT=5432
     - DB_SCHEMA=magnolia
     - DB_USERNAME=magnolia
     - DB_PASSWORD=mysecretpassword
 
 public:
-  image: nicolasbarbe/quickstart-project
+  image: nicolasbarbe/magnolia-cloud-bundle:0.2-SNAPSHOT
   command: run
   ports:
     - "3001:8080"
   links:
     - dbPublic:db
   environment:
-    - INSTANCE_TYPE=public_mysql
+    - INSTANCE_TYPE=public
+    - DB_TYPE=mysql
+    - DB_ADDRESS=db
+    - DB_PORT=3306
     - DB_SCHEMA=magnolia
     - DB_USERNAME=magnolia
     - DB_PASSWORD=mysecretpassword
